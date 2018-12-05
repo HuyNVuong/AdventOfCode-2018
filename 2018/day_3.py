@@ -59,7 +59,7 @@ def test(test_case):
 	allClaims = [re.findall(r"[\w']+", (line.strip())) for line in test_case]
 	mat = claim(allClaims)
 	# print(findTheNiceOne(mat, allClaims))
-	return overlapCount(mat)
+	return (findTheNiceOne(mat, allClaims))
 
 TEST_1 = [
 	'#1 @ 1,3: 4x4',
@@ -67,4 +67,4 @@ TEST_1 = [
 	'#3 @ 5,5: 2x2'
 ]
 
-assert test(TEST_1) == 4
+assert test(TEST_1) == ['3']
