@@ -4,10 +4,10 @@ import numpy
 
 with open('day_3.in') as f:
 	allClaims = [re.findall(r"[\w']+", (line.strip())) for line in f]
-"""
+'''
 Part 1. Count how many titles got overlapped
 Answer: 103806
-"""
+'''
 def claim(allClaims):
 	mat = numpy.zeros((1500, 1500))
 	for claim in allClaims:
@@ -32,10 +32,10 @@ def overlapCount(mat):
 mat = claim(allClaims)
 print (overlapCount(mat))
 
-"""
+'''
 Part 2. Find the grid that 1 elve occupied but not overlap on any one else
 All the 1's left and 1 square that contains all the 1's
-"""
+'''
 def findTheNiceOne(mat, allClaims):
 	naughtyList = set()
 	for claim in allClaims:
@@ -52,9 +52,9 @@ def findTheNiceOne(mat, allClaims):
 	return theNiceOne
 
 print(findTheNiceOne(mat, allClaims))
-"""
+'''
 Unit testing
-"""
+'''
 def test(test_case):
 	allClaims = [re.findall(r"[\w']+", (line.strip())) for line in test_case]
 	mat = claim(allClaims)

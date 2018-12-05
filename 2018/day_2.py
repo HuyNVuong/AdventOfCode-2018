@@ -2,9 +2,9 @@
 with open('day_2.in') as f:
 	allString = [line.strip() for line in f]
 
-"""
+'''
 Part 1. Find sum of counts 2 and counts 3 of string
-"""
+'''
 def checkSum(allString):
 	count_2 = 0
 	count_3 = 0
@@ -25,10 +25,10 @@ def checkSum(allString):
 
 print (checkSum(allString))
 
-"""
+'''
 Part 2. Find 2 string missing by exactly 1 character (should be)
 Answer: efmyhuckqldtwjyvisipargno
-"""
+'''
 def stringDiff(str1, str2):
 	# We only want to return 1 character
 	count = 0
@@ -56,8 +56,8 @@ def checkCommon(allString):
 
 print (checkCommon(allString))
 
-"""
+'''
 Unit testing
-"""
+'''
 assert checkSum(['abcdef', 'bababc', 'abbcde', 'abcccd', 'aabcdd', 'abcdee', 'ababab']) == 12
 assert checkCommon(['abcde', 'fghij','klmno', 'pqrst', 'fguij', 'axcye', 'wvxyz']) == 'fgij'

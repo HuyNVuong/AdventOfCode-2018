@@ -2,10 +2,10 @@ import datetime
 import operator
 from collections import Counter
 
-"""
+'''
 Part 1. Find guard that have longest nap, assume that each nap is no longer
 than 60 minutes
-"""
+'''
 def guard_list(shifts):
     dict = {}
     for i in range (len(shifts)):
@@ -49,10 +49,10 @@ def find_sleepiest_interval(sleepiestGuard_id, guardList):
     # Modified for part 2
     return [(sleepiestMin, count)]
 
-"""
+'''
 Part 2. In this case, we assume every one are sleepiest,
 then we find the most sleepist time among each inividual, then return the total
-"""
+'''
 def find_sleepiest_minute(guardList):
     curr_count = 0
     sleepiestMin = []
@@ -84,9 +84,9 @@ sleepiestMinuteAmongAll = find_sleepiest_minute(guardList)
 print(sleepiestMinuteAmongAll)
 print(sleepiestMinuteAmongAll[0] * sleepiestMinuteAmongAll[1][0][0]) #Yuck, use a class!
 
-"""
+'''
 Unit testing
-"""
+'''
 
 TEST_1 = [
     '[1518-11-01 00:00] Guard #10 begins shift',
