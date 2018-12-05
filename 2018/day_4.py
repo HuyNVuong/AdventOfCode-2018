@@ -2,18 +2,6 @@ import datetime
 import operator
 from collections import Counter
 
-with open('day_4.in') as f:
-    allStrings = [line.strip() for line in f]
-    sortedShifts = []
-    aSleep = False
-    for string in allStrings:
-        stringSplit = string.split(']')
-        timeStampsStr = stringSplit[0].strip('[')
-        date = datetime.datetime.strptime(timeStampsStr, '%Y-%m-%d %H:%M')
-        activity = stringSplit[1]
-        sortedShifts.append((date, activity))
-        sortedShifts.sort(key=lambda x: x[0])
-
 """
 Part 1. Find guard that have longest nap, assume that each nap is no longer
 than 60 minutes
@@ -74,6 +62,18 @@ def find_sleepiest_minute(guardList):
             sleepiestMin.append(guard_id)
             sleepiestMin.append(find_sleepiest_interval(guard_id, guardList))
     return sleepiestMin[(len(sleepiestMin) - 2):(len(sleepiestMin))]
+
+with open('day_4.in') as f:
+    allStrings = [line.strip() for line in f]
+    sortedShifts = []
+    aSleep = False
+    for string in allStrings:
+        stringSplit = string.split(']')
+        timeStampsStr = stringSplit[0].strip('[')
+        date = datetime.datetime.strptime(timeStampsStr, '%Y-%m-%d %H:%M')
+        activity = stringSplit[1]
+        sortedShifts.append((date, activity))
+        sortedShifts.sort(key=lambda x: x[0])
 
 guardList = guard_list(sortedShifts)
 sleepiestGuard = find_spleepiest_guard(guardList)
