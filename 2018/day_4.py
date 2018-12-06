@@ -63,7 +63,7 @@ def find_sleepiest_minute(guardList):
             sleepiestMin.append(find_sleepiest_interval(guard_id, guardList))
     return sleepiestMin[(len(sleepiestMin) - 2):(len(sleepiestMin))]
 
-with open('day_4_2.in') as f:
+with open('day_4.in') as f:
     allStrings = [line.strip() for line in f]
     sortedShifts = []
     aSleep = False
