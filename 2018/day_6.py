@@ -1,22 +1,32 @@
 import numpy
 
 n = 10 # Global matrix size
-
+allNodes_test = []
 # class Node(value, index):
 
 
 def spread(board, node):
 	j = node[1]
 	i = node[2]
+	value = node[0]
+	print(value)
 	if i < n - 1:
-		board[i + 1][j] = node[0]
+		board[i + 1][j] = value
+		newNode = [value, j, i + 1]
+		allNodes_test.append(newNode)
 	if i > 0:
-		board[i - 1][j] = node[0]
+		board[i - 1][j] = value
+		newNode = [value, j, i - 1]
+		allNodes_test.append(newNode)
 	if j < n - 1:
-		board[i][j + 1] = node[0]
+		board[i][j + 1] = value
+		newNode = [value, j + 1, i]
+		allNodes_test.append(newNode)
 	if j > 0:
-		board[i][j - 1] = node[0]
-
+		board[i][j - 1] = value
+		newNode = [value, j - 1, i]
+		allNodes_test.append(newNode)
+	allNodes_test.remove(node)
 
 
 def initBoard(positions):
@@ -53,8 +63,16 @@ TEST = [
 		[5, 5, 5],
 		[6, 8, 9]
 ]
+allNodes_test = [node for node in TEST]
 board = initBoard(TEST)
-
-for node in TEST:
+stop = 8
+i = 0
+for node in allNodes_test:
 	spread(board, node)
+	i += 1
+	if i == 15:
+		break
+print(allNodes_test)
 print(board)
+
+# assert == [(e, 17)]
