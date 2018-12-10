@@ -81,7 +81,7 @@ def IterativeBFS(graph, start):
 
     return explored
 
-with open ('day_7.in') as f:
+with open ('in/day_7.in') as f:
     allLines = [line.strip().split() for line in f]
     vertexSet = {}
     for line in allLines:

@@ -33,7 +33,7 @@ def findSum(node):
     return sumMetadata
 
 
-with open ('day_8.in') as f:
+with open ('in/day_8.in') as f:
     line = [int(num) for num in f.readline().strip().split()]
 
 root, blob = processNode(line, 0)
