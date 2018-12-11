@@ -15,6 +15,11 @@ class Star:
         self.x += ticks * self.vx
         self.y += ticks * self.vy
 
+    # Debugging purpose
+    def undo_move(self):
+        self.x -= self.vx
+        self.y -= self.vy
+
     def parse(line: str):
         position, velocity = re.match(rgx, line).groups()
         x, y = [int(n) for n in position.split(',')]
@@ -31,7 +36,7 @@ def alligning(allStars, trigger):
     upBound = min(star.y for star in allStars)
     downBound = max(star.y for star in allStars)
     if trigger is True:
-        for j in range(upBound, downBound):
+        for j in range(upBound, downBound + 1):
             for i in range(leftBound, rightBound + 1):
                 if (i, j) in locations:
                     print('#', end='')
@@ -42,7 +47,7 @@ def alligning(allStars, trigger):
 
 def findMessage(allStars, ticks):
     trigger = False
-    curr_size = alligning(allStars, trigger)
+    curr_size = alligning(allStars, False)
     for star in allStars:
         star.move(ticks)
     while True:
@@ -53,6 +58,7 @@ def findMessage(allStars, ticks):
                     star.move(1)
                     curr_size = next_size
                 else:
+                    # star.undo_move()
                     trigger = True
             else:
                 alligning(allStars, trigger)
@@ -63,7 +69,7 @@ with open('in/day_10.in') as f:
     allStars = [Star.parse(line) for line in f]
 
 # Find message with a randomly starting second, say the magic number should be around 10000
-print(findMessage(allStars, 10650))
+print(findMessage(allStars, 10659))
 TEST = """position=< 9,  1> velocity=< 0,  2>
 position=< 7,  0> velocity=<-1,  0>
 position=< 3, -2> velocity=<-1,  1>
