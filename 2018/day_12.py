@@ -41,8 +41,8 @@ for i in range(1, 125):
         seen.add(''.join(next_state))
         curr_state = deepcopy(next_state)
     print('[{}]: {}'.format(i, ''.join(curr_state)))
-    if i > 110:
-        print(i, countAlive(curr_state, left_shift))
+    # if i > 110:
+    #     print(i, countAlive(curr_state, left_shift))
 
 print(i, countAlive(curr_state, left_shift))
 '''
