@@ -30,7 +30,7 @@ with open('in/day_12.in') as f:
 left_shift = 3
 seen = set()
 # print('[{}]: {}'.format(0, ''.join(state)))
-for i in range(1, 112):
+for i in range(1, 125):
     next_state = reproduce(curr_state, reproduce_comp)
     if ''.join(next_state) in seen:
         diff = countAlive(next_state, left_shift) - countAlive(curr_state, left_shift)
@@ -41,17 +41,18 @@ for i in range(1, 112):
         seen.add(''.join(next_state))
         curr_state = deepcopy(next_state)
     print('[{}]: {}'.format(i, ''.join(curr_state)))
-    # if ''.join(curr_state[0:5]) == '.....':
-    #     curr_state.pop(0)
-    #     curr_state.pop(0)
-    #     left_shift -= 1
+    if i > 110:
+        print(i, countAlive(curr_state, left_shift))
 
-print(countAlive(curr_state, left_shift))
+print(i, countAlive(curr_state, left_shift))
 '''
 For each gen after gen 94, plant got shifted by 1, therefore num plants
 increased by curr_sum - prev_sum, which is 20
 Don't even cache the point, just print the whole thing out
+num_trees survive for an infnitely long time: const 23
+Gen where they start to balance: 111 ~ 112?
+Approx 1150000000457
 '''
-print(3010 + 20 * (50000000000 - 112))
+print(3033 + 23 * (50000000000 - 112))
 
 assert countAlive('.#....##....#####...#######....#.#..##', 3) == 325
