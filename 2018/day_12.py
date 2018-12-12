@@ -48,10 +48,11 @@ print(i, countAlive(curr_state, left_shift))
 '''
 For each gen after gen 94, plant got shifted by 1, therefore num plants
 increased by curr_sum - prev_sum, which is 20
-Don't even cache the point, just print the whole thing out
+Don't even cache the point, just print the whole thing out and eyeballing the repeating sequence
+trimming the state would result in an sequence error
 num_trees survive for an infnitely long time: const 23
 Gen where they start to balance: 111 ~ 112?
-Approx 1150000000457
+Answer: 1150000000457
 '''
 print(3033 + 23 * (50000000000 - 112))
 
