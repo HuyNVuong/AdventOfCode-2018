@@ -12,7 +12,7 @@ def grid(sn):
             G[y][x] = int(power_str[-3]) - 5
     return G
 '''
-A lot of cool algorithm could help this a lot
+It could run a lot faster if using a correct sub matrix sum algorithm
 '''
 def subSum(x, y, grid, size):
     rightBound = x + size
@@ -47,7 +47,7 @@ def find_max_with_size(grid, n):
             print(size, maxPack[0])
     return maxPack
 
-G = grid(9445)
+print(G)
 print(findMax(G, 300, 3)[0])
 print(find_max_with_size(G, 300))
 

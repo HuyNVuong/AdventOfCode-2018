@@ -58,7 +58,6 @@ def findMessage(allStars, ticks):
                     star.move(1)
                     curr_size = next_size
                 else:
-                    # star.undo_move()
                     trigger = True
             else:
                 alligning(allStars, trigger)
