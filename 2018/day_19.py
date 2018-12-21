@@ -47,25 +47,13 @@ class Instruction:
             output[self.c] = 1 if r[self.a] == r[self.b] else 0
         return output
 
-def execute_all(instructions):
-    ip = 0
-    registers = [0, 0, 0, 0, 0, 0]
-    while True:
-        try:
-            raw_instruction = instructions[ip]
-            instruction = Instruction(raw_instruction[0], raw_instruction[1], raw_instruction[2], raw_instruction[3])
-            registers = instruction.operate(registers)
-            print(ip, instruction, '->', registers)
-            ip += 1
-        except KeyError:
-            break
 '''
 Part 1. I was patient enought to wait for 5 min for the answer
 It comes to notice that all instructions seems to run in a cycle,
 if we could find 1 cycle we can predict what's going to be next
 '''
 def operate_with_ip(instructions, id):
-    registers = [1, 0, 0, 0, 0, 0]
+    registers = [0, 0, 0, 0, 0, 0]
     ip = registers[id]
     while (True):
         try:
@@ -105,7 +93,11 @@ setr 1 0 0
 seti 8 0 4
 seti 9 0 5'''.split('\n')
 
-
+'''
+Part 2. Changing r0 to 1 makes r1 stucks at 105512560
+therefore after 1 cycle r0 = sum of factors 105512560
+Answer: 22157688
+'''
 def test():
     instructions = {}
     ip = 0
