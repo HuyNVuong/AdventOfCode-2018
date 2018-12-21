@@ -13,7 +13,7 @@ class Instruction:
         self.c = c
 
     def __repr__():
-        return 'Instruction({} {} {} {})'.format(self.opcode, self.a, self.b, self.c)
+        return 'Instruction({} {} {} {})'.format(self.operation, self.a, self.b, self.c)
 
     def operate(self, r):
         output = deepcopy(r)
