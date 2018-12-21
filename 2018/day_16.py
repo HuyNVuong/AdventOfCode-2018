@@ -96,8 +96,8 @@ def find_instruction_opcode():
                 raw_operation_with_opcode.setdefault(key, set())
             else:
                 raw_operation_with_opcode[key].add(candicate[0][1])
-    for key, val in raw_operation_with_opcode.items():
-        print(key, val.difference({'muli', 'addi', 'mulr', 'addr', 'eqri', 'eqrr', 'bori', 'borr', 'seti', 'eqir', 'gtrr', 'gtri'}))
+    # for key, val in raw_operation_with_opcode.items():
+        # print(key, val.difference({'muli', 'addi', 'mulr', 'addr', 'eqri', 'eqrr', 'bori', 'borr', 'seti', 'eqir', 'gtrr', 'gtri'}))
 
 
 assert find_possible_instruction(TEST_1[0], TEST_1[1], TEST_1[2]) == 3
@@ -119,8 +119,8 @@ def part_1():
 
 print(part_1())
 '''
-At this point, raw was easy enough to scan with normal eye to determine
-it's instruction based on op opcode
+At this point, raw was easy enough to scan with normal eye and work it on paper
+to determine the instruction instruction based on raw set extracted
 '''
 instruction_with_opcode = {
     0  : 'banr',
