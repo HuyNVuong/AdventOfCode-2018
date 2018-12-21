@@ -69,44 +69,35 @@ TEST_3 = '''Before: [1, 0, 3, 1]
 4 2 3 2
 After:  [1, 0, 0, 1]
 '''.split('\n')
-operation_with_opcode = {}
 
+candicates = []
 def find_possible_instruction(before, inst, after):
     pre_instruction = [int(s) for s in re.findall(r'\d+', before)]
     ins = [int(s) for s in inst.split()]
     post_instruction = [int(s) for s in re.findall(r'\d+', after)]
     possible = 0
-    candicates = []
     for operation in OPERATIONS:
         instruction = Instruction(operation, ins[0], ins[1], ins[2], ins[3])
         output = instruction.operate(pre_instruction)
         candicate = []
         if output == post_instruction:
             possible += 1
-            candicate.append((instruction.operation, instruction.opcode))
+            candicate.append((instruction.opcode, instruction.operation))
             candicates.append(candicate)
-
-    i = 1
-    assertSet = set(deepcopy(OPERATIONS))
-    find_instruction_opcode(candicates, 1, assertSet)
-    print(operation_with_opcode)
     return possible
 
-def find_instruction_opcode(candicates, length, operations):
-    print(operations)
-    if len(operations) == 0:
-        return
+
+def find_instruction_opcode():
+    raw_operation_with_opcode = {}
     for candicate in candicates:
-        if len(candicate) == length:
-            for set in candicate:
-                if set[0] in operations:
-                    print(set[0], operations.remove(set[0]))
-                    opcode = set[1]
-                    operation_with_opcode[opcode] = set[0]
-                    length += 1
-                    continue
-                else:
-                    find_instruction_opcode(candicates, length, operations)
+        if len(candicate) == 1:
+            key = candicate[0][0]
+            if key not in raw_operation_with_opcode.keys():
+                raw_operation_with_opcode.setdefault(key, set())
+            else:
+                raw_operation_with_opcode[key].add(candicate[0][1])
+    for key, val in raw_operation_with_opcode.items():
+        print(key, val.difference({'muli', 'addi', 'mulr', 'addr', 'eqri', 'eqrr', 'bori', 'borr', 'seti', 'eqir', 'gtrr', 'gtri'}))
 
 
 assert find_possible_instruction(TEST_1[0], TEST_1[1], TEST_1[2]) == 3
@@ -127,3 +118,43 @@ def part_1():
     return greater_than_3_opcode
 
 print(part_1())
+'''
+At this point, raw was easy enough to scan with normal eye to determine
+it's instruction based on op opcode
+'''
+instruction_with_opcode = {
+    0  : 'banr',
+    1  : 'addr',
+    2  : 'eqri',
+    3  : 'setr',
+    4  : 'gtrr',
+    5  : 'bori',
+    6  : 'gtir',
+    7  : 'seti',
+    8  : 'borr',
+    9  : 'bani',
+    10 : 'eqir',
+    11 : 'eqrr',
+    12 : 'gtri',
+    13 : 'addi',
+    14 : 'muli',
+    15 : 'mulr',
+}
+
+def part_2():
+    i = 3116
+    blank = input()
+    blank = input()
+    r0 = 0
+    curr_registers = [0, 0, 0, 0]
+    while True:
+        try:
+            line = [int(s) for s in input().split()]
+            instruction = Instruction(instruction_with_opcode[line[0]], line[0], line[1], line[2], line[3])
+            result_registers = instruction.operate(curr_registers)
+            curr_registers = result_registers
+            print(line, '->', curr_registers)
+        except EOFError:
+            break
+    return curr_registers[0]
+print(part_2())
