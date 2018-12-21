@@ -1,4 +1,5 @@
 from copy import deepcopy
+
 def reproduce(state, reproduce_comp):
     state.append('.')
     next_state = deepcopy(state)
