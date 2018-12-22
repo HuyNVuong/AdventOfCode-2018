@@ -69,21 +69,24 @@ def operate_with_ip(instructions, id):
             break
     return registers
 
-with open('in/day_19.in') as f:
-    ip_raw = f.readline()
-    ip = int(re.findall(r'\d+', ip_raw)[0])
-    print(ip)
-    line = f.readline()
-    instructions = {}
-    instruction_ip = 0
-    while line != '':
-        lineSplit = line.split()
-        raw_instruction = (lineSplit[0], int(lineSplit[1]), int(lineSplit[2]), int(lineSplit[3]))
-        instructions[instruction_ip] = raw_instruction
-        instruction_ip += 1
+def main():
+    with open('in/day_19.in') as f:
+        ip_raw = f.readline()
+        ip = int(re.findall(r'\d+', ip_raw)[0])
+        print(ip)
         line = f.readline()
-    # execute_all(instructions)
-    operate_with_ip(instructions, ip)
+        instructions = {}
+        instruction_ip = 0
+        while line != '':
+            lineSplit = line.split()
+            raw_instruction = (lineSplit[0], int(lineSplit[1]), int(lineSplit[2]), int(lineSplit[3]))
+            instructions[instruction_ip] = raw_instruction
+            instruction_ip += 1
+            line = f.readline()
+        # execute_all(instructions)
+        operate_with_ip(instructions, ip)
+if __name__ == "__main__":
+    main()
 
 TEST = '''seti 5 0 1
 seti 6 0 2
@@ -107,4 +110,3 @@ def test():
         instructions[ip] = raw_instruction
         ip += 1
     print(operate_with_ip(instructions, 0))
-test()

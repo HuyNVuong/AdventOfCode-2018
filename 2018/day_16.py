@@ -117,7 +117,7 @@ def part_1():
         i += 4
     return greater_than_3_opcode
 
-print(part_1())
+#
 '''
 At this point, raw was easy enough to scan with normal eye and work it on paper
 to determine the instruction instruction based on raw set extracted
@@ -157,4 +157,11 @@ def part_2():
         except EOFError:
             break
     return curr_registers[0]
-print(part_2())
+#
+
+def main():
+    print(part_1())
+    print(part_2())
+
+if __name__ == "__main__":
+    main()
