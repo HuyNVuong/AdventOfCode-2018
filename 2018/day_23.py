@@ -13,12 +13,12 @@ class Bot:
     def distances_to_bot(self, bot):
         return abs(bot.x - self.x) + abs(bot.y - self.y) + abs(bot.z - self.z)
 
-    def from_line(line):
-        rgx = r'pos=<(.*)>, r=(.*)'
-        pos, r = re.match(rgx, line).groups()
-        x, y, z = [int(n) for n in pos.split(',')]
-        r = int(r)
-        return Bot(x, y, z, r)
+def from_line(line):
+    rgx = r'pos=<(.*)>, r=(.*)'
+    pos, r = re.match(rgx, line).groups()
+    x, y, z = [int(n) for n in pos.split(',')]
+    r = int(r)
+    return Bot(x, y, z, r)
 
 def find_max_range_bot(bots):
     max_bot = Bot(0, 0, 0, 0)
@@ -37,7 +37,7 @@ def find_bots_inrange(bots, max_bot):
 
 def main():
     with open('in/day_23.in') as f:
-        bots = [Bot.from_line(line) for line in f]
+        bots = [from_line(line) for line in f]
         max_bot = find_max_range_bot(bots)
         total_bots_inrange = find_bots_inrange(bots, max_bot)
         print(total_bots_inrange)
@@ -57,6 +57,6 @@ pos=<1,1,1>, r=1
 pos=<1,1,2>, r=1
 pos=<1,3,1>, r=1'''.split('\n')
 
-bots = [Bot.from_line(line) for line in RAW]
+bots = [from_line(line) for line in RAW]
 max_bot = find_max_range_bot(bots)
 assert find_bots_inrange(bots, max_bot) == 7

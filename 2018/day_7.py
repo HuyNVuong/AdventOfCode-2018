@@ -1,107 +1,97 @@
 from copy import deepcopy
-class Stack:
-     def __init__(self):
-         self.items = []
-
-     def isEmpty(self):
-         return self.items == []
-
-     def push(self, item):
-         self.items.append(item)
-
-     def pop(self):
-         return self.items.pop()
-
-     def peek(self):
-         return self.items[len(self.items)-1]
-
-     def size(self):
-         return len(self.items)
-
-def IterativeStackDFS(graph, vertex, path=[]):
-    white = []
-    gray = []
-    black = []
-    for v in vertexSet.keys():
-        white.append(v)
-    S = Stack()
-    S.push(vertex)
-    gray.append(vertex)
-    white.remove(vertex)
-    count = 0
-    discovery = {}
-    processed = {}
-    discovery[0] = count
-    while not S.isEmpty():
-        count += 1
-        x = S.peek()
-        y = None
-        for w in graph[x]:
-            if w in white:
-                y = w
-                graph[x].remove(y)
-                break
-        if y == None:
-            if not white == []:
-                S.push(white[0])
-                gray.append(white[0])
-                white.remove(white[0])
-                continue
-            S.pop()
-            black.append(x)
-            gray.remove(x)
-            node = x
-            processed[node] = count
-        else:
-            S.push(y)
-            gray.append(y)
-            white.remove(y)
-            node = y
-            discovery[node] = count
-    black.reverse()
-    return black
-
-def IterativeBFS(graph, start):
-    explored = []
-    queue = [start]
-    timeStamp = {}
-    timeStamp[start] = 0
-    visited = [start]
-    while queue:
-        node = queue.pop(0)
-        explored.append(node)
-        neighbours = graph[node]
-        for neighbour in neighbours:
-            if neighbour not in visited:
-                queue.append(neighbour)
-                visited.append(neighbour)
-
-                timeStamp[neighbour] = timeStamp[node] + 1
-
-
-    return explored
-
+'''
+H {'U', 'W', 'R'}
+M set()
+J {'D', 'W', 'L', 'O', 'Z', 'E'}
+I {'H', 'R', 'C', 'L', 'P'}
+O {'K'}
+V {'M'}
+Q {'A', 'D', 'C', 'J', 'F', 'T', 'S', 'P', 'B'}
+Y {'H', 'Q', 'A', 'D', 'C', 'I', 'T', 'P', 'U', 'N', 'B'}
+C {'G', 'U'}
+S {'G', 'M', 'D', 'F', 'T', 'I', 'O', 'P', 'U'}
+U {'K', 'X', 'V'}
+Z set()
+D {'G', 'Z', 'X', 'M'}
+F {'H', 'C', 'O', 'U'}
+T {'D', 'C', 'F', 'P'}
+N {'Q', 'A', 'I', 'T', 'O', 'S', 'P', 'Z', 'B'}
+E {'Z', 'C'}
+B {'V', 'G', 'M', 'A', 'R', 'F', 'J', 'K', 'S', 'P', 'X', 'W'}
+G set()
+A {'H', 'R', 'D', 'F', 'O', 'Z'}
+R {'L', 'J', 'U'}
+K {'Z'}
+L {'G'}
+P {'Z', 'L', 'E', 'R'}
+X {'G'}
+W set()
+'''
+vertexSet = {}
 with open ('in/day_7.in') as f:
-    allLines = [line.strip().split() for line in f]
-    vertexSet = {}
-    for line in allLines:
-        key = line[1]
-        vertexSet.setdefault(key, [])
-        key = line[7]
-        vertexSet.setdefault(key, [])
-    for line in allLines:
-        key = line[1]
-        vertexSet[key].append(line[7])
+    lines = [line.strip().split() for line in f]  
+    for line in lines:
+        pre = line[7]
+        req = line[1]
+        if req not in vertexSet.keys():
+            vertexSet.setdefault(req, set())
+        if pre not in vertexSet.keys():
+            vertexSet.setdefault(pre, set())
+            vertexSet[pre].add(line[1])
+        else:
+            vertexSet[pre].add(line[1])
 
 
-for vertex in vertexSet.keys():
-    print(vertex, vertexSet[vertex])
-    # print('Possible path: ', ''.join(IterativeStackDFS(vertexSet, vertex)), len(vertexSet.keys()), '--', len(IterativeStackDFS(vertexSet, vertex)) )
+def process_order():
+    processed = []
+    process = deepcopy(vertexSet)
+    while process:
+        possible_path = [vertex for vertex, reqs in process.items() if len(reqs) == 0]
+        possible_path.sort()
+        next_vertex = possible_path[0]
+        processed.append(next_vertex)
+        for reqs in process.values():
+            if next_vertex in reqs:
+                reqs.remove(next_vertex)
+        del process[next_vertex]
+    return ''.join(processed)
 
+class Worker:
+    def __init__(self, time_to_work, time_start):
+        self.time_start = time_start
+        self.time_to_work = time_to_work
+def process_work_time():
+    workList = []
+    process = deepcopy(vertexSet)
+    tick = 0
+    while process:
+        possible_path = [vertex for vertex, reqs in process.items() if len(reqs) == 0]
+        possible_path.sort()
+        next_vertex = possible_path[0]
+        while possible_path:
+            next_work = possible_path.pop(0)
+            worker = Worker(ord(next_work) - 96, tick)
+            if len(workList) <= 5:
+                workList.append(worker)
+            tick += 1
+        for worker in workList:
+            if worker.time_to_work == tick - worker.time_start:
+                workList.remove(worker)
+        tick += 60
+        for reqs in process.values():
+            if next_vertex in reqs:
+                reqs.remove(next_vertex)
+        del process[next_vertex]
+    return tick
+  
+
+if __name__ == "__main__":
+    print(process_order())
+    print(process_work_time())
 '''
 Unit testing
 '''
-TEST = [
+RAW = [
 'Step C must be finished before step A can begin.',
 'Step C must be finished before step F can begin.',
 'Step A must be finished before step B can begin.',
@@ -110,17 +100,4 @@ TEST = [
 'Step D must be finished before step E can begin.',
 'Step F must be finished before step E can begin.'
 ]
-allLines = [line.strip().split() for line in TEST]
-vertexSet = {}
-for line in allLines:
-    key = line[1]
-    vertexSet.setdefault(key, [])
-    key = line[7]
-    vertexSet.setdefault(key, [])
-for line in allLines:
-    key = line[1]
-    vertexSet[key].append(line[7])
-print(vertexSet)
-tmp = deepcopy(vertexSet)
-print(IterativeBFS(vertexSet, 'C'))
-print(IterativeStackDFS(tmp, 'C'))
+

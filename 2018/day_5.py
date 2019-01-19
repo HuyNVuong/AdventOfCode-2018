@@ -7,7 +7,6 @@ go right otherwise.
 '''
 def react(polymer):
     i = 0
-    length = len(polymer)
     while i < len(polymer) - 1:
         if (polymer[i].lower() == polymer[i + 1].lower()) and (polymer[i] != polymer[i + 1]):
             polymer.pop(i)

@@ -12,9 +12,9 @@ class Point:
     def distances(self, other):
         return abs(self.x - other.x) + abs(self.y - other.y) + abs(self.w - other.w) + abs(self.z - other.z)
 
-    def from_line(line):
-        x, y, w, z = [int(s) for s in line.split(',')]
-        return Point(x, y, w, z)
+def from_line(line):
+    x, y, w, z = [int(s) for s in line.split(',')]
+    return Point(x, y, w, z)
 
 def find_num_constellation(points):
     constellation = set()
@@ -39,7 +39,7 @@ def find_num_constellation(points):
 
 def main():
     with open('in/day_25.in') as f:
-        points = [Point.from_line(line.strip()) for line in f]
+        points = [from_line(line.strip()) for line in f]
         num_constellation = find_num_constellation(points)
         print(num_constellation)
 

@@ -147,6 +147,7 @@ def first_10_min(board, points, size):
         counter = count_trees_lumbers(board, size)
         count = counter['#'] * counter['|']
         # print(count)
+        print_board(board, size)
         if count in seen.keys():
             print(' resonate at ', count, t, '->', seen[count])
         else:

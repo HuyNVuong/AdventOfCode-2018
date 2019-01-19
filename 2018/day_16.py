@@ -12,7 +12,7 @@ class Instruction:
         self.b = b
         self.c = c
 
-    def __repr__():
+    def __repr__(self):
         return 'Instruction({} {} {} {})'.format(self.operation, self.a, self.b, self.c)
 
     def operate(self, r):
